@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
  	string line1;
 	string line2;
 	ifstream myfile("test.txt");
-	if(my_file.is_open()) {
+	if(myfile.is_open()) {
 		getline(myfile,line1);
 		getline(myfile,line2);
 		display(line1, line2, RGB_WHT);
