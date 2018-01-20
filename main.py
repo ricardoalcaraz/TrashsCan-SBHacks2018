@@ -6,23 +6,6 @@ def parseItems(fileName):
     sheet = book.sheet_by_index(0)
     return sheet
 
-#Reads data from barcode
-sheet = parseItems("items.xls") 
-
-
-itemList = []
-#Iterate through all the items and do something with it
-for rows in range(sheet.nrows):
-    rowList = []
-    cells = sheet.row_slice(rows, 0, 5)
-    for cell in cells:
-        #print(cell.value)
-        rowList.append(cell.value)
-    itemList.append(rowList)
-
-
-#TODO Data to go to LCD should be written to a file in pairs. The file should be called "toLCD.txt"
-
 
 class Item():
   def __init__(self,barcode,itemName,count,dateScanned,crv,carbon):
@@ -39,24 +22,42 @@ class Item():
   def getCarbon(self):
     return self.__carbon    
 
-
-total = []
-for line in itemList:
-    total.append( Item(line[0],line[1],line[2],line[3],line[4],line[5]) )
-
+def getCarbon(total):
+  totalCarbon = 0
+  for item in total:
+    totalCarbon += (float(item.getCount()) * float(item.getCarbon()))
+  return totalCarbon
 
 def getCRV(total):
   totalCRV = 0
   for item in total:
-    totalCRV += (item.getCount() * item.getCRV())
+    totalCRV += (float(item.getCount()) * float(item.getCRV()))
   return totalCRV
 
-print(getCRV(total))
+#Reads data from barcode
+sheet = parseItems("items.xls") 
 
-def getCarbon(total):
-  totalCarbon = 0
-  for item in total:
-    totalCarbon += (item.getCount() * item.getCarbon())
-  return totalCarbon
+
+itemList = []
+#Iterate through all the items and do something with it
+for rows in range(sheet.nrows):
+    rowList = []
+    cells = sheet.row_slice(rows, 0, 6)
+    for cell in cells:
+        #print(cell.value)
+        rowList.append(cell.value)
+    itemList.append(rowList)
+
+
+#TODO Data to go to LCD should be written to a file in pairs. The file should be called "toLCD.txt"
+
+
+total = []
+del itemList[0]
+for line in itemList:
+    total.append( Item(line[0],line[1],line[2],line[3],line[4],line[5]) )
+
+
+print(getCRV(total))
 
 print(getCarbon(total))
