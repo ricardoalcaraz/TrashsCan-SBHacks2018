@@ -19,43 +19,44 @@ for rows in range(sheet.nrows):
         #print(cell.value)
         rowList.append(cell.value)
     itemList.append(rowList)
- 
-print(itemList[1])
 
 
 #TODO Data to go to LCD should be written to a file in pairs. The file should be called "toLCD.txt"
 
 
 class Item():
-  def __init__(self,barcode,itemName,dateScanned,crv,carbon):
+  def __init__(self,barcode,itemName,count,dateScanned,crv,carbon):
     self.__barcode = barcode
     self.__itemName = itemName
+    self.__count = count
     self.__dateScanned = dateScanned
     self.__crv = crv
     self.__carbon = carbon
+  def getCount(self):
+    return self.__count
   def getCRV(self):
     return self.__crv
   def getCarbon(self):
     return self.__carbon    
 
 
-yerba = Item(1110,"mate","01/11/10",15,4.5)
+total = []
+for line in itemList:
+    total.append( Item(line[0],line[1],line[2],line[3],line[4],line[5]) )
 
-jaap = [yerba,yerba,yerba]
 
-
-
-def getCRV(person):
+def getCRV(total):
   totalCRV = 0
-  for item in person:
-    totalCRV+=item.getCRV()
+  for item in total:
+    totalCRV += (item.getCount() * item.getCRV())
   return totalCRV
-  
-def getCarbon(person):
+
+print(getCRV(total))
+
+def getCarbon(total):
   totalCarbon = 0
-  for item in person:
-    totalCarbon+=item.getCarbon()
-  return totalCarbon    
-    
-print(getCarbon(jaap))
-print(getCRV(jaap))
+  for item in total:
+    totalCarbon += (item.getCount() * item.getCarbon())
+  return totalCarbon
+
+print(getCarbon(total))
