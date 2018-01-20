@@ -30,27 +30,15 @@ void display(string str1, string str2, int red, int green, int blue)
 	sleep(SLEEP_TIME);
 }
 
-/**Read text from a file and display it onto the LCD screen
-void readText(string fileName) {
-	string line;
-	ifstream myfile(fileName);
-	if(myfile.is_open()) {
-		while( getline(myfile,line) ) {
-			display("Carbon footprint of " >> line, "10456", RGB_WHT);
-		}
-	}
-	else {
-		display("Unable to open file", "", RGB_RED);
-	}
-}
-*/
-
+/**Will read the first two lines of a text file and output it onto the LCD screen*/
 int main(int argc, char* argv[]) {
-	
+	/*Initialize LCD screen address*/
 	lcd = new upm::Jhd1313m1(I2C_BUS, 0x3e, 0x62);
+	/*Initialize variable names*/
  	string line1;
 	string line2;
-	ifstream myfile("test.txt");
+	/*File to read from*/
+	ifstream myfile("toLCD.txt");
 	if(myfile.is_open()) {
 		getline(myfile,line1);
 		getline(myfile,line2);
@@ -58,8 +46,9 @@ int main(int argc, char* argv[]) {
 	} else {
 		display("Unable to open file", "", RGB_RED);
 	}
-
+	/*Clear memory and empty out LCD screen*/
 	delete lcd;
+
 	return 0;
 }
 
