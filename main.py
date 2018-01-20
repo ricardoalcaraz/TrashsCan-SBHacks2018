@@ -9,10 +9,18 @@ def parseItems(fileName):
 #Reads data from barcode
 sheet = parseItems("items.xls") 
 
+
+itemList = []
 #Iterate through all the items and do something with it
 for rows in range(sheet.nrows):
+    rowList = []
     cells = sheet.row_slice(rows, 0, 5)
     for cell in cells:
-        print(cell.value)
+        #print(cell.value)
+        rowList.append(cell.value)
+    itemList.append(rowList)
+ 
+print(itemList[1])
+
 
 #TODO Data to go to LCD should be written to a file in pairs. The file should be called "toLCD.txt"
