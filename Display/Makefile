@@ -1,6 +1,6 @@
 LDFLAGS=-lupm-i2clcd
 CXXFLAGS=-Wall -g
-TARGETS=rgb_lcd_demo
+TARGETS=Display
 
 all: ${TARGETS}
 clean:
