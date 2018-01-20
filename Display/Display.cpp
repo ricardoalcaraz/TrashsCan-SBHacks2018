@@ -30,7 +30,7 @@ void display(string str1, string str2, int red, int green, int blue)
 	sleep(SLEEP_TIME);
 }
 
-/**Read text from a file and display it onto the LCD screen*/
+/**Read text from a file and display it onto the LCD screen
 void readText(string fileName) {
 	string line;
 	ifstream myfile(fileName);
@@ -43,7 +43,7 @@ void readText(string fileName) {
 		display("Unable to open file", "", RGB_RED);
 	}
 }
-
+*/
 
 int main(int argc, char* argv[]) {
 	
