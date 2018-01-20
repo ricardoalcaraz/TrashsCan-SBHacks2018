@@ -24,3 +24,37 @@ print(itemList[1])
 
 
 #TODO Data to go to LCD should be written to a file in pairs. The file should be called "toLCD.txt"
+
+
+class Item():
+  def __init__(self,barcode,itemName,dateScanned,crv,carbon):
+    self.__barcode = barcode
+    self.__itemName = itemName
+    self.__dateScanned = dateScanned
+    self.__crv = crv
+    self.__carbon = carbon
+  def getCrv(self):
+    return self.__crv
+  def getCarbon(self):
+    return self.__carbon    
+
+
+yerba = Item(1110,"mate","01/11/10",15,4.5)
+
+jaap = [yerba,yerba,yerba]
+
+
+
+def getCrv(person):
+  totalCrv = 0
+  for item in person:
+    totalCrv+=item.getCrv()
+  return totalCrv
+  
+def getCarbon(person):
+  totalCarbon = 0
+  for item in person:
+    totalCarbon+=item.getCarbon()
+  return totalCarbon    
+    
+print(getCarbon(jaap))
