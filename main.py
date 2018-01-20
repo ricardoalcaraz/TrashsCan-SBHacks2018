@@ -33,7 +33,7 @@ class Item():
     self.__dateScanned = dateScanned
     self.__crv = crv
     self.__carbon = carbon
-  def getCrv(self):
+  def getCRV(self):
     return self.__crv
   def getCarbon(self):
     return self.__carbon    
@@ -45,11 +45,11 @@ jaap = [yerba,yerba,yerba]
 
 
 
-def getCrv(person):
-  totalCrv = 0
+def getCRV(person):
+  totalCRV = 0
   for item in person:
-    totalCrv+=item.getCrv()
-  return totalCrv
+    totalCRV+=item.getCRV()
+  return totalCRV
   
 def getCarbon(person):
   totalCarbon = 0
@@ -58,3 +58,4 @@ def getCarbon(person):
   return totalCarbon    
     
 print(getCarbon(jaap))
+print(getCRV(jaap))
