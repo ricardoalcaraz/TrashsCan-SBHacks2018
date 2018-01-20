@@ -14,3 +14,5 @@ for rows in range(sheet.nrows):
     cells = sheet.row_slice(rows, 0, 5)
     for cell in cells:
         print(cell.value)
+
+#TODO Data to go to LCD should be written to a file in pairs. The file should be called "toLCD.txt"
