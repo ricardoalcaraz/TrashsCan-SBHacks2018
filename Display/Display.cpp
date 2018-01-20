@@ -1,12 +1,12 @@
 /*
- * Author: Akira Tsukamoto
- * Copyright (c) 2016 Linaro Ltd.
- * All rights reserved.
- * SPDX-License-Identifier: BSD-2-Clause
+ * Authors: Ricardo Alcaraz, Jaap De Dood, Rosswell Tiangco
  */
 
 #include <string>
 #include "upm/jhd1313m1.hpp"
+#include <iostream>
+#include <iomanip>
+#include <fstream>
 
 #define I2C_BUS 0
 #define RGB_WHT 0xff,0xff,0xff
@@ -18,6 +18,7 @@
 using namespace std;
 upm::Jhd1313m1* lcd;
 
+/**Function to display text on I2C LCD Screen*/
 void display(string str1, string str2, int red, int green, int blue)
 {
 	lcd->clear();
@@ -29,25 +30,35 @@ void display(string str1, string str2, int red, int green, int blue)
 	sleep(SLEEP_TIME);
 }
 
-int main(int argc, char* argv[])
-{
-	string str1 = "96Boards!";
-	string str2 = "Grove Sensors!";
-	string str3 = "Linaro!";
+/**Read text from a file and display it onto the LCD screen*/
+void readText(string fileName) {
+	string line;
+	ifstream myfile(fileName);
+	if(myfile.is_open()) {
+		while( getline(myfile,line) ) {
+			display("Carbon footprint of " >> line, "10456", RGB_WHT);
+		}
+	}
+	else {
+		display("Unable to open file", "", RGB_RED);
+	}
+}
+
+
+int main(int argc, char* argv[]) {
 	
 	lcd = new upm::Jhd1313m1(I2C_BUS, 0x3e, 0x62);
+ 	string line1;
+	string line2;
+	ifstream myfile("test.txt");
+	if(my_file.is_open()) {
+		getline(myfile,line1);
+		getline(myfile,line2);
+		display(line1, line2, RGB_WHT);
+	} else {
+		display("Unable to open file", "", RGB_RED);
+	}
 
-	if ((argc >= 2) && (argv[1] != NULL))
-		str1 = argv[1];
-	if ((argc >= 3) && (argv[2] != NULL))
-		str2 = argv[2];
-	if ((argc >= 4) && (argv[3] != NULL))
-		str3 = argv[3];
-
-		display(str1, "Red", RGB_RED);
-		display(str2, "Green", RGB_GRN);
-		display(str3, "Blue", RGB_BLU);
-		display("8=D", "Bitch", RGB_WHT);
 	delete lcd;
 	return 0;
 }
