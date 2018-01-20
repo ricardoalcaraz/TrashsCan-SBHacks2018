@@ -4,3 +4,4 @@ wget --no-check-certificate 'https://drive.google.com/uc?export=download&id=1Rgs
 python main.py
 #Display the data
 sudo ./Display/Display
+#TODO - this should loop so every item can be displayed. Or a method should be figured out to embed c++ code into python so we can do it straight from python
