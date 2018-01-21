@@ -64,7 +64,6 @@ def addToSheet():
         itemList.append(rowList)
 
 def clearSheet():
-  touchButton = int(touch.read())
   if (touchButton == 1): #If button high
      sheet = parseItems("items.xls")
      for rows in range(sheet.nrows):
