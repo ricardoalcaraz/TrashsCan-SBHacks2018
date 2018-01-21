@@ -12,8 +12,9 @@ touch.dir(mraa.DIR_IN)
 
 isTouched = int(touch.read())
 if(isTouched):
-   os.remove("/var/www/html/barcodes.csv")
-   
+  reset = open('/var/www/html/barcodes.csv','w')
+  reset.write('')
+  reset.close()
 itemList = []
 
 
