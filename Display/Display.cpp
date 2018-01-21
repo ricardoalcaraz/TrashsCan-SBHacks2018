@@ -36,14 +36,12 @@ void printToScreen() {
 	string line2;
 	/*File to read from*/
 	ifstream myfile("toLCD.txt");
-	while(!myfile.eof()){
-		if(myfile.is_open()) {
-			getline(myfile,line1);
-			getline(myfile,line2);
-			display(line1, line2, RGB_WHT);
-		} else {
-			display("Unable to open file", "", RGB_RED);
-		}
+	if(myfile.is_open()) {
+		getline(myfile,line1);
+		getline(myfile,line2);
+		display("CO2: "+ line1, "CRV: " + line2, RGB_WHT);
+	} else {
+		display("Unable to open file", "", RGB_RED);
 	}
 }
 
