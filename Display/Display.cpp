@@ -27,6 +27,7 @@ void display(string str1, string str2, int red, int green, int blue)
 	lcd->write(str1);
 	lcd->setCursor(1,2); /* second row */
 	lcd->write(str2);
+	lcd->sleep(SLEEP_TIME);
 }
 
 /**Will read the first two lines of a text file and output it onto the LCD screen*/
