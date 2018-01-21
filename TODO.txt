@@ -1,7 +1,0 @@
-* FEATURES
-** Calculate total carbon footprint contained in trashcan
-** Carbon footprint reset on button press
-** Carbon footprint displayed on LCD display
-** Order more from amazon when item count is low
-** Calculate crv value contained in bottles/cans section
-** Give tips (Buy less plastic bottles!)
