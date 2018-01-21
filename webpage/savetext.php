@@ -1,6 +1,6 @@
 <?php
 		$data = $_POST['barcode'];
-		$ret = file_put_contents('barcodes.txt', $data."\n", FILE_APPEND | LOCK_EX);
+		$ret = file_put_contents('barcodes.csv', $data.",", FILE_APPEND | LOCK_EX);
 		if($ret === false) {
 			echo "$data";
 			die('There was an error writing');
