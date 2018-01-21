@@ -1,5 +1,7 @@
 import xlrd
 #Reads the xls files and returns it as an object
+
+clearTotalFlag = False
 def parseItems(fileName):
     book = xlrd.open_workbook(fileName)
     sheet = book.sheet_by_index(0)
@@ -22,12 +24,16 @@ class Item():
     return self.__carbon    
 
 def getCarbon(total):
+  if total == 0:
+    return 0
   totalCarbon = 0
   for item in total:
     totalCarbon += (float(item.getCount()) * float(item.getCarbon()))
   return totalCarbon
 
 def getCRV(total):
+  if total == 0:
+    return 0
   totalCRV = 0
   for item in total:
     totalCRV += (float(item.getCount()) * float(item.getCRV()))
@@ -38,25 +44,57 @@ def getCRV(total):
 
 #urllib.request.urlretrieve(url, 'items.xls')
 #Reads data from barcode
-sheet = parseItems("items.xls") 
+#sheet = parseItems("items.xls") 
 
 
 itemList = []
 #Iterate through all the items and do something with it
-for rows in range(sheet.nrows):
-    rowList = []
-    cells = sheet.row_slice(rows, 0, 6)
-    for cell in cells:
-        #print(cell.value)
-        rowList.append(cell.value)
-    itemList.append(rowList)
+def addToSheet():
+    sheet = parseItems("items.xls")
+    for rows in range(sheet.nrows):
+        rowList = []
+        cells = sheet.row_slice(rows, 0, 6)
+        for cell in cells:
+            #print(cell.value)
+            rowList.append(cell.value)
+        itemList.append(rowList)
+
+def clearSheet():
+  if (True): #If button high
+     sheet = parseItems("items.xls")
+     for rows in range(sheet.nrows):
+        rowList = []
+        cells = sheet.row_slice(rows, 0, 6)
+        for cell in cells:
+            cell.value = None
+     return True
+  else:
+     return False
+          
+
+addToSheet()
 
 
-total = []
+clearTotalFlag = clearSheet()
+if (clearTotalFlag):
+    total = 0
+else:
+    total = []
+    del itemList[0]
+    for line in itemList:
+        total.append( Item(line[0],line[1],line[2],line[3],line[4],line[5]) )
+ 
 display = open('toLCD.txt','w')
-del itemList[0]
-for line in itemList:
-    total.append( Item(line[0],line[1],line[2],line[3],line[4],line[5]) )
-   
-display.write(str(format(getCarbon(total),'.2f'))+'\n')
-display.write(str(format(getCRV(total),'.2f'))+'\n')
+if (getCarbon(total) == 0):
+    display.write(str(0))
+else:  
+    display.write(str(format(getCarbon(total),'.2f'))+'\n')
+if (getCRV(total) == 0):
+    display.write(str(0))
+else:
+    display.write(str(format(getCRV(total),'.2f'))+'\n')
+
+print(getCarbon(total))
+clearSheet();
+print(getCarbon(total))
+print(getCarbon(total))
