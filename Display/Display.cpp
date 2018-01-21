@@ -8,6 +8,8 @@
 #include <iomanip>
 #include <fstream>
 #include <boost/lexical_cast.hpp>
+#include <signal.h>
+
 
 #define I2C_BUS 0
 #define RGB_WHT 0xff,0xff,0xff
