@@ -43,9 +43,9 @@ void printToScreen() {
 		getline(myfile,line2);
 		double co2 = boost::lexical_cast<double>(line1);
 		//Will display slightly redder as the carbon footprint goes up
-		if(co2 > 0.0) {
-		 	blue = 255 - (int) co2;
-			green = 255 - (int) co2;
+		if((int) co2 < 255) {
+		 	blue = 255 - (int) co2*50;
+			green = 255 - (int) co2*50;
 		}else {
 			blue = 0;
 			green = 0;
