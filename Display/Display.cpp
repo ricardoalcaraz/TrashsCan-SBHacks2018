@@ -40,7 +40,7 @@ void printToScreen() {
 		getline(myfile,line1);
 		getline(myfile,line2);
 <<<<<<< HEAD
-		display("CO2: "+ line1, "CRV: " + line2, RGB_WHT);
+		display("CO2: "+ line1+"kg", "CRV: $" + line2, RGB_WHT);
 =======
 		co2 = boost::lexical_cast<double>(line1);
 		display("CO2: "+ line1, "CRV: " + line2, RGB_WHT);
