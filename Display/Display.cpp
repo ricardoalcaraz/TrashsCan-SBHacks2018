@@ -7,6 +7,7 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <boost/lexical_cast.hpp>
 
 #define I2C_BUS 0
 #define RGB_WHT 0xff,0xff,0xff
@@ -19,8 +20,7 @@ using namespace std;
 upm::Jhd1313m1* lcd;
 
 /**Function to display text on I2C LCD Screen*/
-void display(string str1, string str2, int red, int green, int blue)
-{
+void display(string str1, string str2, int red, int green, int blue) {
 	lcd->clear();
 	lcd->setColor(red, green, blue);
 	lcd->setCursor(0,0); /* first row */
