@@ -57,6 +57,6 @@ display = open('toLCD.txt','w')
 del itemList[0]
 for line in itemList:
     total.append( Item(line[0],line[1],line[2],line[3],line[4],line[5]) )
-    display.write('CO2: ' + str(round(getCarbon(total),2))+'\n')
-    display.write('CRV: ' + str(round(getCRV(total),2))+'\n')
-
+   
+display.write(str(round(getCarbon(total),2))+'\n')
+display.write(str(round(getCRV(total),2))+'\n')
