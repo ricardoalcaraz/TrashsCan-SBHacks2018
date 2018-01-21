@@ -83,8 +83,8 @@ void detectButton() {
 }
 /**Will read the first two lines of a text file and output it onto the LCD screen*/
 int main(int argc, char* argv[]) {
-	mraa::Gpio* touch_gpio = new mraa::Gpio(29);
-    mraa::Gpio* relay_gpio = new mraa::Gpio(27);
+	mraa::Gpio* touch_gpio = new mraa::Gpio(GPIO_G);
+    mraa::Gpio* relay_gpio = new mraa::Gpio(GPIO_H);
 	mraa::Result response;
 	int touch;
 
