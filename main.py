@@ -71,4 +71,4 @@ else:
 '''
 
 display.write(str(format(getCarbonFootprint(itemList),'.2f'))+'\n')
-display.write(str(format(getTotalCRV(itemList)),'.2f'))+'\n'))
+display.write(str(format(getTotalCRV(itemList),'.2f'))+'\n')
