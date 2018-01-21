@@ -1,51 +1,8 @@
 import xlrd
 import mraa
+import csv
+import datakick 
 #Reads the xls files and returns it as an object
-
-clearTotalFlag = False
-def parseItems(fileName):
-    book = xlrd.open_workbook(fileName)
-    sheet = book.sheet_by_index(0)
-    return sheet
-
-
-class Item():
-  def __init__(self,barcode,itemName,count,dateScanned,crv,carbon):
-    self.__barcode = barcode
-    self.__itemName = itemName
-    self.__count = count
-    self.__dateScanned = dateScanned
-    self.__crv = crv
-    self.__carbon = carbon
-  def getCount(self):
-    return self.__count
-  def getCRV(self):
-    return self.__crv
-  def getCarbon(self):
-    return self.__carbon    
-
-def getCarbon(total):
-  if total == 0:
-    return 0
-  totalCarbon = 0
-  for item in total:
-    totalCarbon += (float(item.getCount()) * float(item.getCarbon()))
-  return totalCarbon
-
-def getCRV(total):
-  if total == 0:
-    return 0
-  totalCRV = 0
-  for item in total:
-    totalCRV += (float(item.getCount()) * float(item.getCRV()))
-  return totalCRV
-
-#Download item from web
-#url = 'http://drive.google.com/uc?export=download&id=18hGPJR1wQ    EjTXE18zxdnZeoWP0u99A_E'
-
-#urllib.request.urlretrieve(url, 'items.xls')
-#Reads data from barcode
-#sheet = parseItems("items.xls") 
 
 #Setting up the touch button
 touch = mraa.Gpio(29)
@@ -53,3 +10,65 @@ touch.dir(mraa.DIR_IN)
 
 isTouched = int(touch.read())
 #if(isTouched):
+
+itemList = []
+
+
+with open('barcodes.csv', 'r') as f:
+    reader = csv.reader(f)
+    barcodeList = list(reader) #contains every barcode in .csv
+
+    for row in barcodeList:
+        for col in row:
+            if col == '':
+                break
+            barcode = col
+            product = datakick.find_product(barcode)
+            itemList.append(product)
+    print(barcodeList)
+
+
+def getCRV(item):
+  if "oz" in item.size:
+    if int(item.size[0:2]) < 24:
+      return 0.05
+    else:
+      return 0.1
+  else:
+    return 0
+
+def getCarbonFootprint(item):
+  return 82.8
+
+def getTotalCRV(itemList):
+ totalCRV = 0
+ for item in itemList:
+   totalCRV += getCRV(item)
+ return totalCRV
+
+
+def getTotalCarbonFootprint(itemList):
+  carbonFootprint = 0
+  for item in itemList:
+    carbonFootprint += getCarbonFootprint(item)
+  return carbonFootprint
+
+
+print(getTotalCRV(itemList))
+print(getTotalCarbonFootprint(itemList))
+
+
+display = open('toLCD.txt','w')
+'''
+if (getCarbonFootprint(itemList) == 0):
+    display.write(str(0))
+else:
+    display.write(str(format(getCarbon(total),'.2f'))+'\n')
+if (getCRV(total) == 0):
+    display.write(str(0))
+else:
+    display.write(str(format(getCRV(total),'.2f'))+'\n')
+'''
+
+display.write(str(format(getCarbonFootprint(itemList),'.2f'))+'\n')
+display.write(str(format(getTotalCRV(itemList)),'.2f'))+'\n'))
