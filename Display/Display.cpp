@@ -1,45 +1,23 @@
 /*
  * Authors: Ricardo Alcaraz, Jaap De Dood, Rosswell Tiangco
  */
-#include <stdio.h>
+
 #include <string>
 #include "upm/jhd1313m1.hpp"
 #include <iostream>
 #include <iomanip>
 #include <fstream>
 #include <boost/lexical_cast.hpp>
-#include <signal.h>
-#include <unistd.h>
-#include "mraa.hpp"
 
 #define I2C_BUS 0
 #define RGB_WHT 0xff,0xff,0xff
 #define RGB_RED 0xff,0x00,0x00
 #define RGB_GRN 0x00,0xff,0x00
 #define RGB_BLU 0x00,0x00,0xff
-#define GPIO_A 23
-#define GPIO_B 24
-#define GPIO_C 25
-#define GPIO_D 26
-#define GPIO_E 27
-#define GPIO_F 28
-#define GPIO_G 29
-#define GPIO_H 30
-#define GPIO_I 31
-#define GPIO_J 32
-#define GPIO_K 33
-#define GPIO_L 34
 #define SLEEP_TIME 1
 
 using namespace std;
 upm::Jhd1313m1* lcd;
-bool running = true;
-bool relay_state = false;
-int last_touch;
-
-void sig_handler(int signo){
-	if (signo == SIGINT) running = false;
-}
 
 /**Function to display text on I2C LCD Screen*/
 void display(string str1, string str2, int red, int green, int blue) {
@@ -78,12 +56,8 @@ void printToScreen() {
 	}
 }
 
-void detectButton() {
-
-}
 /**Will read the first two lines of a text file and output it onto the LCD screen*/
 int main(int argc, char* argv[]) {
-
 	/*Initialize LCD screen address*/
 	lcd = new upm::Jhd1313m1(I2C_BUS, 0x3e, 0x62);
 	printToScreen();
