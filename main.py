@@ -14,7 +14,7 @@ isTouched = int(touch.read())
 itemList = []
 
 
-with open('barcodes.csv', 'r') as f:
+with open('/var/www/html/barcodes.csv', 'r') as f:
     reader = csv.reader(f)
     barcodeList = list(reader) #contains every barcode in .csv
 
