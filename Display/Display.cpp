@@ -34,13 +34,23 @@ void printToScreen() {
 	/*Initialize variable names*/
  	string line1;
 	string line2;
+	int blue;
+	int green;
 	/*File to read from*/
 	ifstream myfile("toLCD.txt");
 	if(myfile.is_open()) {
 		getline(myfile,line1);
 		getline(myfile,line2);
-		display("CO2: "+ line1+"kg", "CRV: $" + line2, RGB_WHT);
 		double co2 = boost::lexical_cast<double>(line1);
+		//Will display slightly redder as the carbon footprint goes up
+		if(co2 > 0.0) {
+		 	blue = 255 - (int) co2;
+			green = 255 - (int) co2;
+		}else {
+			blue = 0;
+			green = 0;
+		}
+		display("CO2: "+ line1+"kg", "CRV: $" + line2, 255, green, blue);
 	} else {
 		display("Unable to open file", "", RGB_RED);
 	}
