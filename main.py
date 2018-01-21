@@ -2,6 +2,7 @@ import xlrd
 import mraa
 import csv
 import datakick 
+import re
 #Reads the xls files and returns it as an object
 
 #Setting up the touch button
@@ -30,7 +31,7 @@ with open('/var/www/html/barcodes.csv', 'r') as f:
 
 def getCRV(item):
   if "oz" in item.size:
-    if int(item.size[0:2]) < 24:
+    if int(re.sub("[^0-9]", "", item.size[0:2])) < 24:
       return 0.05
     else:
       return 0.1
