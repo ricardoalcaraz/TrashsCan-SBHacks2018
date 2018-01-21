@@ -38,6 +38,7 @@ def getCRV(item):
   else:
     return 0
 
+
 def getCarbonFootprint(item):
   return 82.8
 
@@ -71,5 +72,5 @@ else:
     display.write(str(format(getCRV(total),'.2f'))+'\n')
 '''
 
-display.write(str(format(getCarbonFootprint(itemList),'.2f'))+'\n')
+display.write(str(format(getTotalCarbonFootprint(itemList),'.2f'))+'\n')
 display.write(str(format(getTotalCRV(itemList),'.2f'))+'\n')
