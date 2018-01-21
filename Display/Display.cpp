@@ -83,34 +83,6 @@ void detectButton() {
 }
 /**Will read the first two lines of a text file and output it onto the LCD screen*/
 int main(int argc, char* argv[]) {
-	mraa::Gpio* touch_gpio = new mraa::Gpio(GPIO_G);
-    mraa::Gpio* relay_gpio = new mraa::Gpio(GPIO_H);
-	mraa::Result response;
-	int touch;
-
-	signal(SIGINT, sig_handler);
-
-	response = touch_gpio->dir(mraa::DIR_IN);
-	if (response != mraa::SUCCESS)
-			return 1;
-	response = relay_gpio->dir(mraa::DIR_OUT);
-	if (response != mraa::SUCCESS)
-			return 1;
-
-	relay_gpio->write(relay_state);
-	
-	while (running) {
-			touch = touch_gpio->read();
-			if (touch == 1 && last_touch == 0) {
-					relay_state = !relay_state;
-					response = relay_gpio->write(relay_state);
-					usleep(100000);
-					remove("/var/www/html/barcodes.txt");
-			}
-			last_touch = touch;
-	}
-	delete relay_gpio;
-	delete touch_gpio;
 
 	/*Initialize LCD screen address*/
 	lcd = new upm::Jhd1313m1(I2C_BUS, 0x3e, 0x62);
@@ -119,7 +91,7 @@ int main(int argc, char* argv[]) {
         /* Commented out to keep screen on while fetching new data */
 	/* delete lcd; */ 
 
-	return response;
+	return 0;
 }
 
 
