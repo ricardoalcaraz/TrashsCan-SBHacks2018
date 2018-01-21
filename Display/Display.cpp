@@ -39,7 +39,7 @@ void printToScreen() {
 	if(myfile.is_open()) {
 		getline(myfile,line1);
 		getline(myfile,line2);
-		display("CO2: "+ line1, "CRV: " + line2, RGB_WHT);
+		display("CO2: "+ line1+"kg", "CRV: $" + line2, RGB_WHT);
 	} else {
 		display("Unable to open file", "", RGB_RED);
 	}
