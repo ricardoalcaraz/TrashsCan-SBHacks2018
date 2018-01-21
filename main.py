@@ -1,5 +1,6 @@
 import xlrd
 import mraa
+from upm import pyupm_jhd1313m1 as lcd
 #Reads the xls files and returns it as an object
 
 clearTotalFlag = False
@@ -47,33 +48,12 @@ def getCRV(total):
 #Reads data from barcode
 #sheet = parseItems("items.xls") 
 
+#Setting up the touch button
+touch = mraa.Gpio(29)
+touch.dir(mraa.DIR_IN)
 
-itemList = []
-#Iterate through all the items and do something with it
-def addToSheet():
-    sheet = parseItems("items.xls")
-    for rows in range(sheet.nrows):
-        rowList = []
-        cells = sheet.row_slice(rows, 0, 6)
-        for cell in cells:
-            #print(cell.value)
-            rowList.append(cell.value)
-        itemList.append(rowList)
-
-def clearSheet():
-  if (True): #If button high
-     sheet = parseItems("items.xls")
-     for rows in range(sheet.nrows):
-        rowList = []
-        cells = sheet.row_slice(rows, 0, 6)
-        for cell in cells:
-            cell.value = None
-     return True
-  else:
-     return False
-          
-
-addToSheet()
+isTouched = int(touch.read())
+#if(isTouched):
 
 
 clearTotalFlag = clearSheet()
