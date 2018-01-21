@@ -1,4 +1,4 @@
-import xlrd
+'''import xlrd
 #Reads the xls files and returns it as an object
 
 clearTotalFlag = False
@@ -21,7 +21,7 @@ class Item():
   def getCRV(self):
     return self.__crv
   def getCarbon(self):
-    return self.__carbon    
+    return self.__carbon
 
 def getCarbon(total):
   if total == 0:
@@ -44,7 +44,7 @@ def getCRV(total):
 
 #urllib.request.urlretrieve(url, 'items.xls')
 #Reads data from barcode
-#sheet = parseItems("items.xls") 
+#sheet = parseItems("items.xls")
 
 
 itemList = []
@@ -66,11 +66,12 @@ def clearSheet():
         rowList = []
         cells = sheet.row_slice(rows, 0, 6)
         for cell in cells:
+
             cell.value = None
      return True
   else:
      return False
-          
+
 
 addToSheet()
 
@@ -83,11 +84,11 @@ else:
     del itemList[0]
     for line in itemList:
         total.append( Item(line[0],line[1],line[2],line[3],line[4],line[5]) )
- 
+
 display = open('toLCD.txt','w')
 if (getCarbon(total) == 0):
     display.write(str(0))
-else:  
+else:
     display.write(str(format(getCarbon(total),'.2f'))+'\n')
 if (getCRV(total) == 0):
     display.write(str(0))
@@ -98,3 +99,85 @@ print(getCarbon(total))
 clearSheet();
 print(getCarbon(total))
 print(getCarbon(total))
+'''
+
+
+import csv
+import datakick
+
+itemList = []
+
+with open('barcodes.csv', 'r') as f:
+    reader = csv.reader(f)
+    barcodeList = list(reader) #contains every barcode in .csv
+
+    '''
+    with open('barcodes.txt') as f:
+        data = f.readlines()
+    '''
+
+    '''
+    for item in barcodeList:
+        product = datakick.find_product(item)
+        itemList.append(product)
+    '''
+
+    for row in barcodeList:
+        for col in row:
+            barcode = col
+            product = datakick.find_product(barcode)
+            itemList.append(product)
+
+
+
+def getCRV(item):
+  if "oz" in item.size:
+    if int(item.size[0:2]) < 24:
+      return 0.05
+    else:
+      return 0.1
+  else:
+    return 0
+
+def getCarbonFootprint(item):
+  return 82.8
+
+
+
+
+
+def getTotalCRV(itemList):
+ totalCRV = 0
+ for item in itemList:
+   totalCRV += getCRV(item)
+ return totalCRV
+
+
+def getTotalCarbonFootprint(itemList):
+  carbonFootprint = 0
+  for item in itemList:
+    carbonFootprint += getCarbonFootprint(item)
+  return carbonFootprint
+
+
+print(getTotalCRV(itemList))
+print(getTotalCarbonFootprint(itemList))
+
+
+'''
+class Item():
+  def __init__(self,barcode,itemName,count,dateScanned,crv,carbon):
+    self.__barcode = barcode
+    self.__itemName = itemName
+    self.__count = count
+    self.__dateScanned = dateScanned
+    self.__crv = crv
+    self.__carbon = carbon
+  def getCount(self):
+    return self.__count
+  def getCRV(self):
+    return self.__crv
+  def getCarbon(self):
+    return self.__carbon
+
+'''
