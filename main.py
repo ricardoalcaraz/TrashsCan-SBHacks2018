@@ -1,6 +1,5 @@
 import xlrd
 import mraa
-from upm import pyupm_jhd1313m1 as lcd
 #Reads the xls files and returns it as an object
 
 clearTotalFlag = False
@@ -54,28 +53,3 @@ touch.dir(mraa.DIR_IN)
 
 isTouched = int(touch.read())
 #if(isTouched):
-
-
-clearTotalFlag = clearSheet()
-if (clearTotalFlag):
-    total = 0
-else:
-    total = []
-    del itemList[0]
-    for line in itemList:
-        total.append( Item(line[0],line[1],line[2],line[3],line[4],line[5]) )
- 
-display = open('toLCD.txt','w')
-if (getCarbon(total) == 0):
-    display.write(str(0))
-else:  
-    display.write(str(format(getCarbon(total),'.2f'))+'\n')
-if (getCRV(total) == 0):
-    display.write(str(0))
-else:
-    display.write(str(format(getCRV(total),'.2f'))+'\n')
-
-print(getCarbon(total))
-clearSheet();
-print(getCarbon(total))
-print(getCarbon(total))
