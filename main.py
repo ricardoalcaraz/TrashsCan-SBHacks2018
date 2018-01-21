@@ -1,8 +1,4 @@
 import xlrd
-import mraa
-
-touch = mraa.Gpio(29)
-touch.dir(mraa.DIR_OUT)
 #Reads the xls files and returns it as an object
 
 clearTotalFlag = False
@@ -64,7 +60,7 @@ def addToSheet():
         itemList.append(rowList)
 
 def clearSheet():
-  if (touchButton == 1): #If button high
+  if (True): #If button high
      sheet = parseItems("items.xls")
      for rows in range(sheet.nrows):
         rowList = []
