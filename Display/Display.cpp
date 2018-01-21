@@ -40,7 +40,15 @@ void printToScreen() {
 		getline(myfile,line1);
 		getline(myfile,line2);
 		double co2 = boost::lexical_cast<double>(line1);
-		display("CO2: "+ line1, "CRV: " + line2, RGB_WHT);
+		//Will display slightly redder as the carbon footprint goes up
+		if(co2 > 0.0) {
+			int blue = 255 - (int) co2;
+			int green = 255 - (int) co2;
+		}else {
+			int blue = 0;
+			int green = 0;
+		}
+		display("CO2: "+ line1, "CRV: " + line2, 255, blue, green);
 	} else {
 		display("Unable to open file", "", RGB_RED);
 	}
