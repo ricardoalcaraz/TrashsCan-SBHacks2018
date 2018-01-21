@@ -53,15 +53,11 @@ for rows in range(sheet.nrows):
     itemList.append(rowList)
 
 
-#TODO Data to go to LCD should be written to a file in pairs. The file should be called "toLCD.txt"
-
-
 total = []
+display = open('toLCD.txt','w')
 del itemList[0]
 for line in itemList:
     total.append( Item(line[0],line[1],line[2],line[3],line[4],line[5]) )
+    display.write('CO2: ' + str(round(getCarbon(total),2))+'\n')
+    display.write('CRV: ' + str(round(getCRV(total),2))+'\n')
 
-
-print(getCRV(total))
-
-print(getCarbon(total))
