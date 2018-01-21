@@ -48,7 +48,9 @@ void printToScreen() {
 			int blue = 0;
 			int green = 0;
 		}
-		display("CO2: "+ line1, "CRV: " + line2, 255, blue, green);
+		display("CO2: "+ line1+"kg", "CRV: $" + line2, RGB_WHT);
+		co2 = boost::lexical_cast<double>(line1);
+		display("CO2: "+ line1, "CRV: " + line2, RGB_WHT);
 	} else {
 		display("Unable to open file", "", RGB_RED);
 	}
