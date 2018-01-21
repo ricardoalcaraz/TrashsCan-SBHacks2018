@@ -39,12 +39,8 @@ void printToScreen() {
 	if(myfile.is_open()) {
 		getline(myfile,line1);
 		getline(myfile,line2);
-<<<<<<< HEAD
 		display("CO2: "+ line1+"kg", "CRV: $" + line2, RGB_WHT);
-=======
-		co2 = boost::lexical_cast<double>(line1);
-		display("CO2: "+ line1, "CRV: " + line2, RGB_WHT);
->>>>>>> 6391763b3c45609067b82371003e137aa424e7b1
+		double co2 = boost::lexical_cast<double>(line1);
 	} else {
 		display("Unable to open file", "", RGB_RED);
 	}
