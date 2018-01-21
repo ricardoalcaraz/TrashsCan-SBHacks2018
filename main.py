@@ -1,5 +1,4 @@
 import xlrd
-import urllib.request
 #Reads the xls files and returns it as an object
 def parseItems(fileName):
     book = xlrd.open_workbook(fileName)
@@ -35,9 +34,9 @@ def getCRV(total):
   return totalCRV
 
 #Download item from web
-url = 'http://drive.google.com/uc?export=download&id=18hGPJR1wQ    EjTXE18zxdnZeoWP0u99A_E'
+#url = 'http://drive.google.com/uc?export=download&id=18hGPJR1wQ    EjTXE18zxdnZeoWP0u99A_E'
 
-urllib.request.urlretrieve(url, 'items.xls')
+#urllib.request.urlretrieve(url, 'items.xls')
 #Reads data from barcode
 sheet = parseItems("items.xls") 
 
