@@ -3,6 +3,7 @@ import mraa
 import csv
 import datakick 
 import re
+import os
 #Reads the xls files and returns it as an object
 
 #Setting up the touch button
@@ -10,8 +11,9 @@ touch = mraa.Gpio(29)
 touch.dir(mraa.DIR_IN)
 
 isTouched = int(touch.read())
-#if(isTouched):
-
+if(isTouched):
+   os.remove("/var/www/html/barcodes.csv")
+   
 itemList = []
 
 
