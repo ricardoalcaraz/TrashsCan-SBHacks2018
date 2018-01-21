@@ -1,4 +1,5 @@
 import xlrd
+import mraa
 #Reads the xls files and returns it as an object
 
 clearTotalFlag = False
