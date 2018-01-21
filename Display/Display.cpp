@@ -7,6 +7,7 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <boost/lexical_cast.hpp>
 
 #define I2C_BUS 0
 #define RGB_WHT 0xff,0xff,0xff
@@ -19,8 +20,7 @@ using namespace std;
 upm::Jhd1313m1* lcd;
 
 /**Function to display text on I2C LCD Screen*/
-void display(string str1, string str2, int red, int green, int blue)
-{
+void display(string str1, string str2, int red, int green, int blue) {
 	lcd->clear();
 	lcd->setColor(red, green, blue);
 	lcd->setCursor(0,0); /* first row */
@@ -39,7 +39,12 @@ void printToScreen() {
 	if(myfile.is_open()) {
 		getline(myfile,line1);
 		getline(myfile,line2);
-		display("CO2: "+ line1+"kg", "CRV: $" + line2, RGB_WHT);
+<<<<<<< HEAD
+		display("CO2: "+ line1, "CRV: " + line2, RGB_WHT);
+=======
+		co2 = boost::lexical_cast<double>(line1);
+		display("CO2: "+ line1, "CRV: " + line2, RGB_WHT);
+>>>>>>> 6391763b3c45609067b82371003e137aa424e7b1
 	} else {
 		display("Unable to open file", "", RGB_RED);
 	}
