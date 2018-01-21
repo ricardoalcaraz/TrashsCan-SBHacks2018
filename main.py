@@ -107,27 +107,19 @@ import datakick
 
 itemList = []
 
+
 with open('barcodes.csv', 'r') as f:
     reader = csv.reader(f)
     barcodeList = list(reader) #contains every barcode in .csv
 
-    '''
-    with open('barcodes.txt') as f:
-        data = f.readlines()
-    '''
-
-    '''
-    for item in barcodeList:
-        product = datakick.find_product(item)
-        itemList.append(product)
-    '''
-
     for row in barcodeList:
         for col in row:
+            if col == '':
+                break
             barcode = col
             product = datakick.find_product(barcode)
             itemList.append(product)
-
+    print(barcodeList)
 
 
 def getCRV(item):
@@ -141,10 +133,6 @@ def getCRV(item):
 
 def getCarbonFootprint(item):
   return 82.8
-
-
-
-
 
 def getTotalCRV(itemList):
  totalCRV = 0
@@ -164,20 +152,17 @@ print(getTotalCRV(itemList))
 print(getTotalCarbonFootprint(itemList))
 
 
+display = open('toLCD.txt','w')
 '''
-class Item():
-  def __init__(self,barcode,itemName,count,dateScanned,crv,carbon):
-    self.__barcode = barcode
-    self.__itemName = itemName
-    self.__count = count
-    self.__dateScanned = dateScanned
-    self.__crv = crv
-    self.__carbon = carbon
-  def getCount(self):
-    return self.__count
-  def getCRV(self):
-    return self.__crv
-  def getCarbon(self):
-    return self.__carbon
+if (getCarbonFootprint(itemList) == 0):
+    display.write(str(0))
+else:
+    display.write(str(format(getCarbon(total),'.2f'))+'\n')
+if (getCRV(total) == 0):
+    display.write(str(0))
+else:
+    display.write(str(format(getCRV(total),'.2f'))+'\n')
+'''
 
-'''
+display.write(str(format(getCarbonFootprint(itemList),'.2f'))+'\n')
+display.write(str(format(getTotalCRV(itemList)),'.2f'))+'\n')
